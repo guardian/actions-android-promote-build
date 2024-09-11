@@ -1,11 +1,11 @@
-name: Deploy build to Google play
-description: Deploys a build to a Google Play track using fastlane
+name: Promote to Google Play track
+description: Promotes the build currently release in one track to another track
 inputs:
   dry-run:
     type: boolean
     required: false
     default: true #remove at end of testingthis should not be here
-    description: When enabled, workflow will not execute the fastlane command to deploy a build, but print it instead
+    description: When enabled, workflow will print the fastlane command instead of executing it
   package-name:
     description: The unique package name for the android app, e.g. uk.co.guardian.feast
     required: true
@@ -38,6 +38,7 @@ runs:
           --skip_upload_metadata \
           --skip_upload_changelogs \
           --skip_upload_images \
-          --skip_upload_screenshots \
+          --skip_upload_screenshots
       env:
         SUPPLY_JSON_KEY_DATA: "" #"${{ inputs.console-credentials }}" #remove when testing done
+        
