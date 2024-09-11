@@ -31,8 +31,8 @@ runs:
       run: |
         ${DRY_RUN} fastlane supply \
           --package_name ${{ inputs.package-name }} \
-          --track: "${{ inputs.from-track }}" \
-          --track_promote_to: "${{ inputs.to-track }}" \
+          --track "${{ inputs.from-track }}" \
+          --track_promote_to "${{ inputs.to-track }}" \
           --skip_upload_apk \
           --skip_upload_aab \
           --skip_upload_metadata \
@@ -40,6 +40,6 @@ runs:
           --skip_upload_images \
           --skip_upload_screenshots
       env:
-        DRY_RUN: ${{ inputs.dry-run == true && 'echo' || '' }}
+        DRY_RUN: ${{ "inputs.dry-run" == 'true' && 'echo' || '' }}
         SUPPLY_JSON_KEY_DATA: "" #"${{ inputs.console-credentials }}" #remove when testing done
         
