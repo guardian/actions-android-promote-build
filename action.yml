@@ -40,5 +40,5 @@ runs:
           --skip_upload_images \
           --skip_upload_screenshots
       env:
-        SUPPLY_JSON_KEY_DATA: "" #"${{ inputs.console-credentials }}" #remove when testing done
+        SUPPLY_JSON_KEY_DATA: "${{ inputs.console-credentials }}" #remove when testing done
         
