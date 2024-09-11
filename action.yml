@@ -1,0 +1,45 @@
+name: Promote to Google Play track
+description: Promotes the build currently release in one track to another track
+inputs:
+  dry-run:
+    type: boolean
+    required: false
+    default: true #remove at end of testingthis should not be here
+    description: When enabled, workflow will print the fastlane command instead of executing it
+  package-name:
+    description: The unique package name for the android app, e.g. uk.co.guardian.feast
+    required: true
+    type: string  
+  from-track:
+    description: Track on Google Play where the build is currently
+    required: true
+    default: internal
+    type: string
+  to-track:
+    description: Track on Google Play to promote to
+    required: true
+    default: alpha
+    type: string
+  console-credentials:
+    required: false #remove at end of testing
+    type: string
+runs:
+  using: "composite"
+  steps:
+    - name: Promote latest release on track ${{ inputs.from-track }} to track ${{ inputs.to-track }}
+      shell: bash
+      run: |
+        ${DRY_RUN} fastlane supply \
+          --package_name ${{ inputs.package-name }} \
+          --track "${{ inputs.from-track }}" \
+          --track_promote_to "${{ inputs.to-track }}" \
+          --skip_upload_apk \
+          --skip_upload_aab \
+          --skip_upload_metadata \
+          --skip_upload_changelogs \
+          --skip_upload_images \
+          --skip_upload_screenshots
+      env:
+        SUPPLY_JSON_KEY_DATA: ${{ inputs.console-credentials }}
+        DRY_RUN: ${{ inputs.dry-run == 'true' && 'echo' || '' }} # if inputs.dry-run is true, set env.DRY_RUN to echo, otherwise we set it to empty string
+        
