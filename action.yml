@@ -29,7 +29,7 @@ runs:
     - name: Promote latest release on track ${{ inputs.from-track }} to track ${{ inputs.to-track }}
       shell: bash
       run: |
-        ${DRY_RUN} fastlane supply \
+        echo fastlane supply \
           --package_name ${{ inputs.package-name }} \
           --track "${{ inputs.from-track }}" \
           --track_promote_to "${{ inputs.to-track }}" \
@@ -40,6 +40,5 @@ runs:
           --skip_upload_images \
           --skip_upload_screenshots
       env:
-        DRY_RUN: ${{ "inputs.dry-run" == 'true' && 'echo' || '' }}
         SUPPLY_JSON_KEY_DATA: "" #"${{ inputs.console-credentials }}" #remove when testing done
         
