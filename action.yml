@@ -29,7 +29,7 @@ runs:
     - name: Promote latest release on track ${{ inputs.from-track }} to track ${{ inputs.to-track }}
       shell: bash
       run: |
-        ${DRY_RUN} echo fastlane supply \
+        ${DRY_RUN} fastlane supply \
           --package_name ${{ inputs.package-name }} \
           --track "${{ inputs.from-track }}" \
           --track_promote_to "${{ inputs.to-track }}" \
