@@ -4,7 +4,7 @@ inputs:
   dry-run:
     type: boolean
     required: false
-    default: true #remove at end of testingthis should not be here
+    default: false
     description: When enabled, workflow will print the fastlane command instead of executing it
   package-name:
     description: The unique package name for the android app, e.g. uk.co.guardian.feast
@@ -13,15 +13,13 @@ inputs:
   from-track:
     description: Track on Google Play where the build is currently
     required: true
-    default: internal
     type: string
   to-track:
     description: Track on Google Play to promote to
     required: true
-    default: alpha
     type: string
   console-credentials:
-    required: false #remove at end of testing
+    required: true
     type: string
 runs:
   using: "composite"
@@ -42,4 +40,3 @@ runs:
       env:
         SUPPLY_JSON_KEY_DATA: ${{ inputs.console-credentials }}
         DRY_RUN: ${{ inputs.dry-run == 'true' && 'echo' || '' }} # if inputs.dry-run is true, set env.DRY_RUN to echo, otherwise we set it to empty string
-        
